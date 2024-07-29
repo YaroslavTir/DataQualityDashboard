@@ -173,7 +173,14 @@
 
   checkResults <- checkResults %>%
     dplyr::mutate(
-      notApplicableReason = ifelse(
+     notApplicableReason = {
+       message(sprintf(
+        "Row %d: notApplicable=%d, result=%s",
+        row_number(),
+        .data$notApplicable,
+        result
+      ))
+      ifelse(
         .data$notApplicable == 1,
         dplyr::case_when(
           !is.na(.data$notApplicableReason) ~ .data$notApplicableReason,
@@ -185,7 +192,8 @@
           .data$conceptAndUnitAreMissing ~ sprintf("Combination of %s=%s, unitConceptId=%s and VALUE_AS_NUMBER IS NOT NULL is missing from the %s table.", .data$cdmFieldName, .data$conceptId, .data$unitConceptId, .data$cdmTableName) # nolint
         ),
         NA_character_
-      ),
+      )
+    },
       failed = ifelse(.data$notApplicable == 1, 0, .data$failed),
       passed = ifelse(.data$failed == 0 & .data$isError == 0 & .data$notApplicable == 0, 1, 0)
     ) %>%
