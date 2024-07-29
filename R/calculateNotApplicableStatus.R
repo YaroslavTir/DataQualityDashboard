@@ -177,12 +177,6 @@
   checkResults <- checkResults %>%
     dplyr::mutate(
      notApplicableReason = {
-       message(sprintf(
-        "Row %d: notApplicable=%d, result=%s",
-        row_number(),
-        .data$notApplicable,
-        result
-      ))
       ifelse(
         .data$notApplicable == 1,
         dplyr::case_when(
