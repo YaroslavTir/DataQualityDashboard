@@ -163,6 +163,7 @@
     }
   }
 
+  message("test0");
   if (.hasNAchecks(checkResults)) {
     checkResults <- .calculateNotApplicableStatus(checkResults)
   }
