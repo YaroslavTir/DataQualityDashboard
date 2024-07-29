@@ -171,6 +171,9 @@
     }
   }
 
+
+  message("test");
+
   checkResults <- checkResults %>%
     dplyr::mutate(
      notApplicableReason = {
